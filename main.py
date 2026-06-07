@@ -4,12 +4,50 @@ import math
 import matplotlib.pyplot as plt
 
 from bubble_sort import bubble_sort
-from merge_sort  import merge_sort, movimentos as mov_merge
-from quick_sort  import quick_sort
 
 def gerar_vetor(n):
     return [random.randint(1, 1_000_000) for _ in range(n)]
 
+# ── Merge Sort inline (com contador resetável) ──────────────
+def merge_sort(arr):
+    movimentos = [0]
+    def _merge(a):
+        if len(a) <= 1:
+            return a
+        mid = len(a) // 2
+        left  = _merge(a[:mid])
+        right = _merge(a[mid:])
+        result = []
+        i = j = 0
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+                result.append(left[i]); i += 1
+            else:
+                result.append(right[j]); j += 1
+            movimentos[0] += 1
+        result.extend(left[i:])
+        result.extend(right[j:])
+        movimentos[0] += len(left[i:]) + len(right[j:])
+        return result
+    resultado = _merge(arr)
+    return resultado, movimentos[0]
+
+# ── Quick Sort inline (com contador resetável) ──────────────
+def quick_sort(arr):
+    trocas = [0]
+    def _quick(a):
+        if len(a) <= 1:
+            return a
+        pivot = a[len(a) // 2]
+        left   = [x for x in a if x < pivot]
+        middle = [x for x in a if x == pivot]
+        right  = [x for x in a if x > pivot]
+        trocas[0] += len(a)
+        return _quick(left) + middle + _quick(right)
+    resultado = _quick(arr)
+    return resultado, trocas[0]
+
+# ── Execução ─────────────────────────────────────────────────
 tamanhos   = [1000, 10000, 100000]
 algoritmos = {
     'Bubble Sort': bubble_sort,
