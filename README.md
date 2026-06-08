@@ -12,12 +12,13 @@ Letícia Lima da Silva — RA: 23918691
 ## Algoritmos implementados
 
 | Algoritmo | Complexidade média | Complexidade pior caso |
-|---|---|---|---|
-| Bubble Sort | O(n²) | O(n²) | 
+|---|---|---|
+| Bubble Sort | O(n²) | O(n²) |
 | Merge Sort | O(n log n) | O(n log n) |
 | Quick Sort | O(n log n) | O(n²) |
 
 ---
+
 
 ## Como executar
 
